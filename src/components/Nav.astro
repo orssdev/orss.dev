@@ -1,5 +1,39 @@
 ---
+const links = [
+	{ href: '#hero', label: 'Home' },
+	{ href: '#projects', label: 'Projects' },
+	{ href: '#experience', label: 'Experience' },
+	{ href: '#skills', label: 'Skills' },
+	{ href: '#about', label: 'About' },
+	{ href: '#contact', label: 'Contact' },
+];
 ---
 
-<nav>
-</nav>
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
+	<nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+		<a href="#hero" class="font-semibold">orss.dev</a>
+		<ul class="hidden gap-6 text-sm sm:flex">
+			{links.map((link) => (
+				<li>
+					<a href={link.href} class="hover:text-neutral-500 dark:hover:text-neutral-400">{link.label}</a>
+				</li>
+			))}
+		</ul>
+		<button
+			id="theme-toggle"
+			type="button"
+			aria-label="Toggle color theme"
+			class="rounded-md border border-neutral-200 px-2 py-1 text-sm dark:border-neutral-800"
+		>
+			<span class="dark:hidden">Dark</span>
+			<span class="hidden dark:inline">Light</span>
+		</button>
+	</nav>
+</header>
+
+<script is:inline>
+	document.getElementById('theme-toggle')?.addEventListener('click', () => {
+		const isDark = document.documentElement.classList.toggle('dark');
+		localStorage.setItem('theme', isDark ? 'dark' : 'light');
+	});
+</script>

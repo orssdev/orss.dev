@@ -14,8 +14,13 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <script is:inline>
+      const stored = localStorage.getItem('theme');
+      const theme = stored ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
   </head>
-  <body>
+  <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
     <slot />
   </body>
 </html>
